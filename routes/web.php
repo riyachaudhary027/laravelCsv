@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserImportController;
+
+ 
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +26,5 @@ Route::get('/profiles', [ProfileController::class, 'showUsers'])->name('profile.
 Route::get('profiles/edit/{id}', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::post('profiles/{id}', [ProfileController::class, 'update'])->name('profile.update');
 Route::delete('profiles/{id}', [ProfileController::class, 'destroy'])->name('profile.delete');
+Route::get('/import', [UserImportController::class, 'showImportForm']);
+Route::post('/import', [UserImportController::class, 'import'])->name('import.users');

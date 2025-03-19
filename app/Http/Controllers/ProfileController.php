@@ -18,14 +18,14 @@ class ProfileController extends Controller
         // Validate the request data
         
         $validatedData = $request->validate([
-            'profileImage' => 'required|image|mimes:jpeg,jpg',
-            'name' => 'required|max:25',
-            'phone' => 'required',
-            'email' => 'required|email',
-            'street' => 'required',
-            'city' => 'required',
-            'state' => 'required',
-            'country' => 'required',
+            'profileImage' => 'required|image|mimes:jpeg,jpg|max:2048', // Image validation
+            'name' => 'required|string|max:25', // Name should be a string
+            'phone' => 'required|regex:/^\+91-\(\d{3}\) \d{3}-\d{4}$/', // Indian phone number validation
+            'email' => 'required|email', // Email validation
+            'street' => 'required|string', // Street address validation
+            'city' => 'required|string', // City validation
+            'state' => 'required|in:CA,NY,AT', // State validation
+            'country' => 'required|in:IN,US,EU', // Country validation
         ]);
 
         // Handle the profile image upload

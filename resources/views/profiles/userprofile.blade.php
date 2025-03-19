@@ -5,19 +5,19 @@
 <div class = 'container'>
 <h2>Profile Form</h2>
 
- <form action="{{ url('/profile') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ url('/profile') }}" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
  @csrf
  <!-- Profile Image (JPG only) -->
  <label for="profileImage">Profile Image (JPG only):</label>
  <input type="file" id="profileImage" name="profileImage" accept="image/jpeg" required>
 
- <!-- Name (Text, 25 characters limit) -->
+ <!-- Name (Text, 25 characters limit, only letters and spaces) -->
  <label for="name">Name:</label>
  <input type="text" id="name" name="name" maxlength="25" required>
 
- <!-- Phone (+1- (XXX) XXX-XXXX format) -->
+ <!-- Phone (+91-(XXX) XXX-XXXX format) -->
  <label for="phone">Phone:</label>
- <input type="text" id="phone" name="phone"  placeholder="+1-(123) 456-7890" required>
+ <input type="text" id="phone" name="phone"  placeholder="+91-(123) 456-7890" required>
 
  <!-- Email (Email validation) -->
  <label for="email">Email:</label>
@@ -51,4 +51,28 @@
  <button type="submit">Submit</button>
 </form>
 </div>
+
+<script>
+function validateForm() {
+    // Validate name (should only contain letters and spaces)
+    var name = document.getElementById('name').value;
+    var nameRegex = /^[a-zA-Z\s]+$/; // Only letters and spaces
+    if (!nameRegex.test(name)) {
+        alert("Name should only contain letters and spaces.");
+        return false;
+    }
+
+    // Validate phone number format: +91-(XXX) XXX-XXXX
+    var phone = document.getElementById('phone').value;
+    var phoneRegex = /^\+91-\(\d{3}\) \d{3}-\d{4}$/;
+    if (!phoneRegex.test(phone)) {
+        alert("Phone number must be in the format +91-(XXX) XXX-XXXX");
+        return false;
+    }
+
+    // If all validations pass, return true
+    return true;
+}
+</script>
+
 @endsection
